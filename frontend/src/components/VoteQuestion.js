@@ -10,7 +10,7 @@ function VoteQuestion() {
     const [hasVoted, setHasVoted] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://127.0.0.1:8000/polls/questions/${id}`)
+        axios.get(`http://127.0.0.1:8000/polls/questions/${id}/`)
         .then(res => {
             setQuestion(res.data);
         })

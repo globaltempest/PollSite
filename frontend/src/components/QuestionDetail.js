@@ -7,7 +7,7 @@ function QuestionDetail() {
     const [question, setQuestion] = useState(null);
 
     useEffect(() => {
-        axios.get(`http://127.0.0.1:8000/polls/questions/${id}`)
+        axios.get(`http://127.0.0.1:8000/polls/questions/${id}/`)
         .then(res => {
             console.log(res.data)
             setQuestion(res.data);

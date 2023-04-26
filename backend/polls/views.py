@@ -9,12 +9,30 @@ from .models import Choice, Question
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework import generics
+from rest_framework import generics, status
 from .serializers import QuestionSerializer, ChoiceSerializer
 # Create your views here.
 
 
 class QuestionList(APIView):
+    def get(self, request):
+        questions = Question.objects.all()
+        serializer = QuestionSerializer(questions, many=True)
+        return Response(serializer.data)
+
+
+class QuestionDetail(APIView):
+    def get(self, request, pk):
+        try:
+            question = Question.objects.get(pk=pk)
+        except Question.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = QuestionSerializer(question)
+        return Response(serializer.data)
+
+
+'''class QuestionList(APIView):
     def get(self, request):
         questions = Question.objects.all()
         serializer = QuestionSerializer(questions, many=True)
@@ -25,7 +43,7 @@ class QuestionDetail(APIView):
     def get(self, request, pk):
         question = Question.objects.get(pk=pk)
         serializer = QuestionSerializer(question)
-        return JsonResponse(serializer.data, safe=False)
+        return JsonResponse(serializer.data, safe=False)'''
 
 
 '''class IndexView(generic.ListView):
