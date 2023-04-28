@@ -22,7 +22,7 @@ class QuestionList extends React.Component {
             <ul>
               {this.state.questions.map(question =>
                 <li key={question.id}>
-                    <Link to={`/questions/${question.id}`}>{question.question_text}</Link>
+                    <Link to={`/questions/${question.id}/vote/`}>{question.question_text}</Link>
                 </li>
               )}
             </ul>

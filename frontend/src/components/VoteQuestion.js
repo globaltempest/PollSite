@@ -26,6 +26,7 @@ function VoteQuestion() {
         axios.post(`http://127.0.0.1:8000/polls/questions/${id}/vote/`, {choice: selectedChoice})
         .then(res => {
             setHasVoted(true);
+            setQuestion(res.data);
         })
         .catch(err => {console.log(err)})
     };
@@ -61,4 +62,5 @@ function VoteQuestion() {
         </div>
     );
 }
+
 export default VoteQuestion;

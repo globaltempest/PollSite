@@ -14,7 +14,7 @@ function QuestionResults({question}) {
                     </li>
                 ))}
             </ul>
-            <Link to='/questions'>Back to question list</Link>
+            <Link to='/'>Back to question list</Link>
         </div>
     );
 }
