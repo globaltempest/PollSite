@@ -1,15 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from django.template import loader
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.views import generic
-from django.utils import timezone
-from django.http import JsonResponse
 from .models import Choice, Question
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework import generics, status
+from rest_framework import status
 from .serializers import QuestionSerializer, ChoiceSerializer
 # Create your views here.
 
@@ -30,6 +23,40 @@ class QuestionDetail(APIView):
 
         serializer = QuestionSerializer(question)
         return Response(serializer.data)
+
+
+class Vote(APIView):
+    def post(self, request, *args, **kwargs):
+        question_id = self.kwargs['pk']
+        try:
+            question = Question.objects.get(pk=question_id)
+        except Question.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            choice_id = request.data['choice']
+            selected_choice = question.choices.get(pk=choice_id)
+        except (KeyError, Choice.DoesNotExist):
+            return Response({"error": "Invalid choice"}, status=status.HTTP_400_BAD_REQUEST)
+
+        selected_choice.votes += 1
+        selected_choice.save()
+
+        serializer = QuestionSerializer(question)
+        return Response(serializer.data)
+
+
+'''class Vote(APIView):
+    def post(self, request, choice_id):
+        try:
+            choice = Choice.objects.get(pk=choice_id)
+        except Choice.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        choice.votes += 1
+        choice.save()
+
+        return Response({"success": "Vote submitted."}, status=status.HTTP_200_OK)'''
 
 
 '''class QuestionList(APIView):
