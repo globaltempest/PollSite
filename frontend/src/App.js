@@ -9,8 +9,7 @@ function App() {
       <div className='container'>
         <Routes>
           <Route exact path='/' Component={QuestionList}/>
-          {/*<Route exact path='/questions/:id' Component={QuestionDetail}/>*/}
-          <Route exact path='/questions/:id/vote/' Component={VoteQuestion}/>
+          <Route exact path='/:id/vote/' Component={VoteQuestion}/>
         </Routes>
       </div>
     </Router>
