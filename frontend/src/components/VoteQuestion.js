@@ -45,20 +45,22 @@ function VoteQuestion() {
 
     return (
         <div>
-            <h2>{question.question_text}</h2>
-            <form onSubmit={handleSubmit}>
-                <ul>
-                    {question.choices.map(choice => (
-                        <li key = {choice.id}>
-                            <label>
-                                <input type='radio' name='choice' value={choice.id} onChange={handleChoiceChange}/>
-                                {choice.choice_text}
-                            </label>
-                        </li>
-                    ))}
-                </ul>
-                <button type='submit'>Vote</button>
-            </form>
+            <header className="text-center display-1 font-weight-bold title ">{question.question_text}</header>
+            <div className="d-flex align-items-center justify-content-center mt-5">
+                <form onSubmit={handleSubmit}>
+                    <ul className='list-unstyled'>
+                        {question.choices.map(choice => (
+                            <li key = {choice.id}>
+                                <label>
+                                    <input type='radio' name='choice' value={choice.id} onChange={handleChoiceChange}/>
+                                    <span style={{ marginLeft: '10px', font: '1.2rem' }}>{choice.choice_text}</span>
+                                </label>
+                            </li>
+                        ))}
+                    </ul>
+                    <button type='submit' className='btn btn-dark'>Vote</button>
+                </form>
+            </div>
         </div>
     );
 }

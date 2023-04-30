@@ -6,7 +6,7 @@ import VoteQuestion from './components/VoteQuestion';
 function App() {
   return (
     <Router>
-      <div className='container'>
+      <div>
         <Routes>
           <Route exact path='/' Component={QuestionList}/>
           <Route exact path='/:id/vote/' Component={VoteQuestion}/>
