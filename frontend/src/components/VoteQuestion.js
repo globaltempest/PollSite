@@ -45,7 +45,7 @@ function VoteQuestion() {
 
     return (
         <div>
-            <header className="text-center display-1 font-weight-bold title ">{question.question_text}</header>
+            <header className="text-center display-1 font-weight-bold title mt-5">{question.question_text}</header>
             <div className="d-flex align-items-center justify-content-center mt-5">
                 <form onSubmit={handleSubmit}>
                     <ul className='list-unstyled'>

@@ -6,7 +6,7 @@ function QuestionResults({question}) {
 
     return (
         <div>
-            <header className="text-center display-1 font-weight-bold title ">Results</header>
+            <header className="text-center display-1 font-weight-bold title mt-5">Results</header>
             <div className="text-center mt-5">
                 <ul className='list-unstyled'>
                     {question.choices.map(choice => (
