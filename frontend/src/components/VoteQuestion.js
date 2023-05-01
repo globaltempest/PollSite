@@ -58,7 +58,7 @@ function VoteQuestion() {
                             </li>
                         ))}
                     </ul>
-                    <button type='submit' className='btn btn-dark'>Vote</button>
+                    <button type='submit' className='btn btn-dark btn-lg'>Vote</button>
                 </form>
             </div>
         </div>
