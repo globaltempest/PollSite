@@ -1,6 +1,7 @@
 import React, { useEffect, useState, memo, useMemo } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { cacheQuestions, getCachedQuestions } from './CacheAccess';
 
 function QuestionList() {
   const [questions, setQuestions] = useState([]);
@@ -12,9 +13,9 @@ function QuestionList() {
   }, [questions]);
 
   useEffect(() => {
-    const cachedQuestions = localStorage.getItem('cachedQuestions');
+    const cachedQuestions = getCachedQuestions();
     if (cachedQuestions) {
-      setQuestions(JSON.parse(cachedQuestions));
+      setQuestions(cachedQuestions);
     } else {
       const startTime = Date.now();
       axios.get('http://127.0.0.1:8000/polls/questions/')
@@ -23,7 +24,7 @@ function QuestionList() {
           const responseTime = endTime - startTime;
           console.log(`Response time: ${responseTime}ms`);
           const questions = res.data;
-          localStorage.setItem('cachedQuestions', JSON.stringify(questions));
+          cacheQuestions(questions);
           setQuestions(questions);
         })
         .catch(err => { console.log(err) })
