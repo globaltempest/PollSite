@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { cacheQuestions, getCachedQuestions } from './CacheAccess';
 
 function QuestionList() {
+  // state variable to hold questionlist
   const [questions, setQuestions] = useState([]);
 
+  // memoized questionlist to reduce rendering, when questions array changes -> memoized value updated
   const memoizedQuestions = useMemo(() => {
     return questions.map(question => (
       <QuestionRow key={question.id} question={question} />
@@ -13,16 +15,15 @@ function QuestionList() {
   }, [questions]);
 
   useEffect(() => {
+    // gets cached questions
     const cachedQuestions = getCachedQuestions();
+    // set questionlist if questions exists, else make api call to get and cache questions 
     if (cachedQuestions) {
       setQuestions(cachedQuestions);
     } else {
-      const startTime = Date.now();
+      // GET request for question list
       axios.get('http://127.0.0.1:8000/polls/questions/')
         .then(res => {
-          const endTime = Date.now();
-          const responseTime = endTime - startTime;
-          console.log(`Response time: ${responseTime}ms`);
           const questions = res.data;
           cacheQuestions(questions);
           setQuestions(questions);
@@ -31,6 +32,7 @@ function QuestionList() {
     }
   }, []);
 
+  // displays the question list with links to get to each question
   return (
     <div className='container-fluid mt-4 row justify-content-center'>
       <header className="text-center display-1 font-weight-bold title ">Questions</header>
@@ -44,6 +46,7 @@ function QuestionList() {
   );
 }
 
+// link each memoized question from list, if props change -> re-render
 const QuestionRow = memo(({ question }) => {
   return (
     <tr>

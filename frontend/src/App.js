@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import QuestionList from './components/QuestionList';
 import VoteQuestion from './components/VoteQuestion';
 
+//routes for the application
 function App() {
   return (
     <Router>

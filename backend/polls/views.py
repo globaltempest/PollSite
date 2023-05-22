@@ -6,12 +6,16 @@ from rest_framework import status
 from .serializers import QuestionSerializer, ChoiceSerializer
 # Create your views here.
 
+# get request for list of all polls
+
 
 class QuestionList(APIView):
     def get(self, request):
         questions = Question.objects.all()
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data)
+
+# get request for the details of a single poll
 
 
 class QuestionDetail(APIView):
@@ -23,6 +27,8 @@ class QuestionDetail(APIView):
 
         serializer = QuestionSerializer(question)
         return Response(serializer.data)
+
+# post request for adding votes to a poll
 
 
 class Vote(APIView):
