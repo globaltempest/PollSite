@@ -1,12 +1,17 @@
 from django.contrib import admin
 from .models import Choice, Question
 
-# Register your models here.
+# display choice model in row with 3 choices
 
 
 class ChoicesInLine(admin.TabularInline):
     model = Choice
     extra = 3
+
+# display question model with various fields
+# has choice model inline
+# displays list of questions with various fields
+# able to filter list by publication date and search by question text
 
 
 class QuestionAdmin(admin.ModelAdmin):
@@ -21,4 +26,5 @@ class QuestionAdmin(admin.ModelAdmin):
     search_fields = ['question_text']
 
 
+# manage questions through admin website (CRUD operations)
 admin.site.register(Question, QuestionAdmin)

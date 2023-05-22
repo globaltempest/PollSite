@@ -8,8 +8,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib import admin
 
-# Create your models here.
-
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
@@ -29,6 +27,8 @@ class Question(models.Model):
 
 
 class Choice(models.Model):
+    # 1 question is associated with multiple choices
+    # can access choices choices from question with related name
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, related_name='choices')
     choice_text = models.CharField(max_length=200)

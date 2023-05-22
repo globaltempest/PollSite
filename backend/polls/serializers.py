@@ -9,6 +9,7 @@ class ChoiceSerializer(serializers.ModelSerializer):
 
 
 class QuestionSerializer(serializers.ModelSerializer):
+    # uses choiceserializer to serialize related choice objects
     choices = ChoiceSerializer(many=True)
 
     class Meta:
